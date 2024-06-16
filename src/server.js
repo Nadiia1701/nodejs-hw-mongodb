@@ -43,7 +43,7 @@ export const setupServer = () => {
 
     if (!contact) {
       res.status(404).json({
-        status: 400,
+        status: 404,
 		    message: 'Student not found'
 	  });
       return;
