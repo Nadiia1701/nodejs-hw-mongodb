@@ -7,7 +7,7 @@ const parseSortOrder = (sortOrder) => {
 };
 
 const parseSortBy = (sortBy) => {
-  const keysOfStudent = [
+  const keysOfContact = [
     '_id',
     'name',
     'phoneNumber',
@@ -18,7 +18,7 @@ const parseSortBy = (sortBy) => {
     'updatedAt',
   ];
 
-  if (keysOfStudent.includes(sortBy)) {
+  if (keysOfContact.includes(sortBy)) {
     return sortBy;
   }
 
@@ -36,4 +36,18 @@ export const parseSortParams = (query) => {
     sortBy: parsedSortBy,
   };
 };
+
+// import { SORT_ORDER } from "../constants/contacts-constants.js";
+
+// const parseSortParams = ({ sortOrder, sortBy }, fieldList) => {
+//     const parsedSortOrder = SORT_ORDER.includes(sortOrder) ? sortOrder : SORT_ORDER[0];
+//     const parsedSortBy = fieldList.includes(sortBy) ? sortBy : fieldList[0];
+
+//     return {
+//         sortBy: parsedSortBy,
+//         sortOrder: parsedSortOrder,
+//     }
+// }
+
+// export default parseSortParams;
 

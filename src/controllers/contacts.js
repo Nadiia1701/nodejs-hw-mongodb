@@ -11,6 +11,7 @@ export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
 
   const { sortBy, sortOrder } = parseSortParams(req.query);
+  // const { sortBy, sortOrder } = parseSortParams(req.query, contactFieldList - створити список полів у константах і імпортувати сюди);
 
   const contacts = await getAllContacts({
     page,
