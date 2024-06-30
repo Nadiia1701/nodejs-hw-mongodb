@@ -6,18 +6,20 @@ import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
 import { parseSortParams } from '../utils/parseSortParams.js';
 
+import { parseFilterParams } from '../utils/parseFilterParams.js';
+
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
-
   const { sortBy, sortOrder } = parseSortParams(req.query);
-  // const { sortBy, sortOrder } = parseSortParams(req.query, contactFieldList - створити список полів у константах і імпортувати сюди);
+  const filter = parseFilterParams(req.query);
 
   const contacts = await getAllContacts({
     page,
     perPage,
     sortBy,
     sortOrder,
+    filter,
   });
 
   res.json({

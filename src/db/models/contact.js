@@ -24,7 +24,8 @@ const contactsSchema = new Schema(
     },
 
     contactType: {
-        type: typeList,
+        type: String,
+        enum: typeList,
         default: 'personal'
     }
   },
