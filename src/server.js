@@ -2,9 +2,10 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import { env } from './utils/env.js';
-import contactsRouter from './routers/contacts.js';
+import router from './routers/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import cookieParser from 'cookie-parser';
 
 
 
@@ -30,6 +31,8 @@ export const setupServer = () => {
     }),
   );
 
+  app.use(cookieParser());
+
   app.get('/', (req, res) => {
     res.json({
       status: 200,
@@ -37,7 +40,7 @@ export const setupServer = () => {
     });
   });
 
-  app.use(contactsRouter);
+  app.use(router);
 
   app.use('*', notFoundHandler);
 
