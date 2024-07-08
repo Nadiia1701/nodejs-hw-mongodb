@@ -74,13 +74,13 @@ export const patchContactController = async (req, res, next) => {
   const result = await updateContact({ _id: contactId, userId }, req.body);
 
   if (!result) {
-    next(createHttpError(404, `Contact ${contactId} not found`));
+    next(createHttpError(404, `Contact ${contactId} not found or you do not have permission to update it`));
     return;
   }
 
-  res.json({
+  res.status(200).json({
     status: 200,
-    message: `Successfully patched a contact!`,
+    message: `Successfully updated a contact!`,
     data: result.contact,
   });
 };
@@ -92,7 +92,7 @@ export const deleteСontactController = async (req, res, next) => {
   const contact = await deleteContact({ _id: contactId, userId });
 
   if (!contact) {
-    next(createHttpError(404, `Contact ${contactId} not found`));
+    next(createHttpError(404, `Contact ${contactId} not found or you do not have permission to delete it`));
     return;
   }
 
