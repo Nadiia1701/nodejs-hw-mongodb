@@ -21,6 +21,8 @@ export const setupServer = () => {
     }),
   );
 
+  app.use('/uploads', express.static(UPLOAD_DIR));
+
   app.use(cors());
 
   app.use(
@@ -32,8 +34,6 @@ export const setupServer = () => {
   );
 
   app.use(cookieParser());
-
-  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.get('/', (req, res) => {
     res.json({

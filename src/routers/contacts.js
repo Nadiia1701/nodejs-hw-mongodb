@@ -22,9 +22,9 @@ router.get('/', ctrlWrapper(getContactsController));
 
 router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
 
-router.post('/', validateBody(createContactSchema), upload.single('photo'), ctrlWrapper(createContactController));
+router.post('/', upload.single('photo'), validateBody(createContactSchema), ctrlWrapper(createContactController));
 
-router.patch('/:contactId', validateBody(updateContactSchema), isValidId, upload.single('photo'), ctrlWrapper(patchContactController));
+router.patch('/:contactId', upload.single('photo'), validateBody(updateContactSchema), isValidId, ctrlWrapper(patchContactController));
 
 router.delete('/:contactId', isValidId, ctrlWrapper(deleteСontactController));
 

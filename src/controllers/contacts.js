@@ -54,7 +54,16 @@ export const getContactByIdController = async (req, res, next) => {
 export const createContactController = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
-    const payload = { ...req.body, userId };
+    const photo = req.file;
+    let photoUrl;
+    if (photo) {
+      if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+      } else {
+      photoUrl = await saveFileToUploadDir(photo);
+      }
+    }
+    const payload = { ...req.body, userId, photo: photoUrl };
     const contact = await createContact(payload);
 
     res.status(201).json({
@@ -70,17 +79,16 @@ export const createContactController = async (req, res, next) => {
 export const patchContactController = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { contactId } = req.params;
-  
+
   const photo = req.file;
   let photoUrl;
-   if (photo) {
+  if (photo) {
     if (env('ENABLE_CLOUDINARY') === 'true') {
-      photoUrl = await saveFileToCloudinary(photo);
+     photoUrl = await saveFileToCloudinary(photo);
     } else {
-      photoUrl = await saveFileToUploadDir(photo);
+     photoUrl = await saveFileToUploadDir(photo);
     }
   }
-
   const result = await updateContact({ _id: contactId, userId }, {...req.body, photo: photoUrl,});
   if (!result) {
     next(createHttpError(404, `Contact ${contactId} not found or you do not have permission to update it`));
