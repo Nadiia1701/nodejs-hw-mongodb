@@ -77,29 +77,40 @@ export const createContactController = async (req, res, next) => {
 };
 
 export const patchContactController = async (req, res, next) => {
-  const { _id: userId } = req.user;
-  const { contactId } = req.params;
+  try {
+    const { _id: userId } = req.user;
+    const { contactId } = req.params;
 
-  const photo = req.file;
-  let photoUrl;
-  if (photo) {
-    if (env('ENABLE_CLOUDINARY') === 'true') {
-     photoUrl = await saveFileToCloudinary(photo);
-    } else {
-     photoUrl = await saveFileToUploadDir(photo);
+    const photo = req.file;
+    let photoUrl;
+    if (photo) {
+      if (env('ENABLE_CLOUDINARY') === 'true') {
+        photoUrl = await saveFileToCloudinary(photo);
+      } else {
+        photoUrl = await saveFileToUploadDir(photo);
+      }
     }
-  }
-  const result = await updateContact({ _id: contactId, userId }, {...req.body, photo: photoUrl,});
-  if (!result) {
-    next(createHttpError(404, `Contact ${contactId} not found or you do not have permission to update it`));
-    return;
-  }
 
-  res.status(200).json({
-    status: 200,
-    message: `Successfully updated a contact!`,
-    data: result.contact,
-  });
+    const updatePayload = { ...req.body };
+    if (photoUrl) {
+      updatePayload.photo = photoUrl;
+    }
+
+    const result = await updateContact(contactId, userId, updatePayload);
+    
+    if (!result) {
+      next(createHttpError(404, `Contact ${contactId} not found or you do not have permission to update it`));
+      return;
+    }
+
+    res.status(200).json({
+      status: 200,
+      message: `Successfully updated a contact!`,
+      data: result.contact,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const deleteСontactController = async (req, res, next) => {
