@@ -1,4 +1,4 @@
-description: NotFound Error
+description: Not Found Error
 content:
   application/json:
     schema:

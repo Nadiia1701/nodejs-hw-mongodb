@@ -97,7 +97,7 @@ export const patchContactController = async (req, res, next) => {
     }
 
     const result = await updateContact(contactId, userId, updatePayload);
-    
+
     if (!result) {
       next(createHttpError(404, `Contact ${contactId} not found or you do not have permission to update it`));
       return;
@@ -117,7 +117,7 @@ export const deleteСontactController = async (req, res, next) => {
   const { contactId } = req.params;
   const { _id: userId } = req.user;
 
-  const contact = await deleteContact({ _id: contactId, userId });
+  const contact = await deleteContact(contactId, userId);
 
   if (!contact) {
     next(createHttpError(404, `Contact ${contactId} not found or you do not have permission to delete it`));
