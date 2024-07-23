@@ -11,10 +11,10 @@
   },
   "servers": [
     {
-      "url": "<http://localhost:3000>"
+      "url": "https://localhost:3000"
     },
     {
-      "url": "<https://nodejs-hw-swagger-v7p6.onrender.com>"
+      "url": "https://nodejs-hw-swagger-v7p6.onrender.com"
     }
   ],
   "tags": [
@@ -205,6 +205,26 @@
                     "description": "Contact's email",
                     "type": "string",
                     "example": "test3@gmail.com"
+                  },
+                  "contactType": {
+                    "description": "Contact's type",
+                    "type": "string",
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ],
+                    "example": "personal"
+                  },
+                  "isFavourite": {
+                    "description": "Whether is contact favourite",
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "photo": {
+                    "description": "Link to contact's photo",
+                    "type": "string",
+                    "example": "https://res.cloudinary.com/dxajyixgo/image/upload/v1721212524/kd9fbbmmnvvh2r0zl6xy.jpg"
                   }
                 }
               }
