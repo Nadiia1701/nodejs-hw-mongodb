@@ -14,6 +14,7 @@ requestBody:
           - name
           - phoneNumber
           - email
+          - contactType
         properties:
           name:
             description: "Contact's name"
@@ -27,6 +28,19 @@ requestBody:
             description: "Contact's email"
             type: string
             example: 'test3@gmail.com'
+          contactType:
+            description: "Contact's type"
+            type: string
+            enum: ['work', 'home', 'personal']
+            example: 'personal'
+          isFavourite:
+            description: 'Whether is contact favourite'
+            type: boolean
+            example: false
+          photo:
+            description: "Link to contact's photo"
+            type: string
+            example: 'https://res.cloudinary.com/dxajyixgo/image/upload/v1721212524/kd9fbbmmnvvh2r0zl6xy.jpg'
 responses:
   '201':
     description: Creates a contact
