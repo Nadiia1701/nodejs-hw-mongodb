@@ -28,7 +28,7 @@ requestBody:
             type: string
             example: 'test3@gmail.com'
           contactType:
-            description: "Contact's type"
+            description: "Contact's type - work, home, personal"
             type: string
             enum: ['work', 'home', 'personal']
             example: 'personal'
